@@ -183,13 +183,13 @@ class Music(commands.Cog):
             return await ctx.send("Gabung dulu ke voice channel!")
 
         if not query:
-            return await ctx.send("❌ Harap masukkan judul atau url.")
+            return await ctx.send("Harap masukkan judul atau url.")
 
         try:
             if not ctx.voice_client:
                 await ctx.author.voice.channel.connect()
         except Exception as e:
-            return await ctx.send(f"❌ Gagal terhubung ke voice channel: {e}")
+            return await ctx.send(f"Gagal terhubung ke voice channel: {e}")
 
         await ctx.send("Memproses permintaan...")
 
@@ -238,7 +238,7 @@ class Music(commands.Cog):
 
                 result = self.search_youtube_stream(search_query)
                 if not result or not result['stream_url']:
-                    return await ctx.send("❌ Tidak bisa stream lagu dari YouTube.")
+                    return await ctx.send("Tidak bisa stream lagu dari YouTube.")
 
                 track = {
                     "title": f"{track_name} / {artist_name}",
@@ -256,7 +256,7 @@ class Music(commands.Cog):
             else:
                 result = self.search_youtube_stream(query)
                 if not result or not result['stream_url']:
-                    return await ctx.send("❌ Tidak bisa stream lagu dari YouTube.")
+                    return await ctx.send("Tidak bisa stream lagu dari YouTube.")
 
                 track = {
                     "title": result['title'],
@@ -272,7 +272,7 @@ class Music(commands.Cog):
                     await self.play_next(ctx)
 
         except Exception as e:
-            return await ctx.send(f"❌ Gagal memproses permintaan: {e}")
+            return await ctx.send(f"Gagal memproses permintaan: {e}")
 
         if not ctx.voice_client.is_playing():
             await self.play_next(ctx)
@@ -300,7 +300,7 @@ class Music(commands.Cog):
 
             await ctx.send("⏭ Lagu dilewati.")
         else:
-            await ctx.send("🚫 Tidak ada lagu yang sedang diputar.")
+            await ctx.send("Tidak ada lagu yang sedang diputar.")
 
 
     @commands.command(name="stop")
@@ -335,7 +335,7 @@ class Music(commands.Cog):
         queue = music_data[gid]["queue"]
 
         if not queue:
-            return await ctx.send("🚫 Antrean kosong.")
+            return await ctx.send("Antrean kosong.")
 
         view = TrackView(self.bot, ctx, queue, gid)
         view.message = await ctx.send(embed=view.build_embed(), view=view)
